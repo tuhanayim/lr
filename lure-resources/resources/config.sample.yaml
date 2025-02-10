@@ -1,0 +1,102 @@
+## Configuration for the services.
+##
+## This field is ignored if all of the `services-` prefixed
+## features are disabled.
+##
+## Environment variable prefix: LURE_SERVICES__
+service:
+  ## Options for the Last.fm service.
+  ##
+  ## Environment variable prefix: LURE_SERVICES__LASTFM__
+  lastfm:
+    ## Whether to enable (aka use) this service or not.
+    ##
+    ## Environment variable: LURE_SERVICES__LASTFM__ENABLE
+    ##
+    ## Default: false
+    enable:
+    ## Last.fm username to check for listening activity.
+    ##
+    ## Environment variable: LURE_SERVICES__LASTFM__USERNAME
+    username:
+    ## Last.fm API key to use for checking listening activity.
+    ##
+    ## A `-file` suffix can be added to read the API key from a file.
+    ##
+    ## Environment variable: LURE_SERVICES__LASTFM__API_KEY
+    ##                       LURE_SERVICES__LASTFM__API_KEY_FILE
+    api_key:
+    ## Interval in seconds to check for listening activity.
+    ##
+    ## Default: 16
+    ##
+    ## Environment variable: LURE_SERVICES__LASTFM__CHECK_INTERVAL
+    check_interval: 16
+  ## Options for the ListenBrainz service.
+  ##
+  ## Environment variable prefix: LURE_SERVICES__LISTENBRAINZ__
+  listenbrainz:
+    ## Whether to enable (aka use) this service or not.
+    ##
+    ## Environment variable: LURE_SERVICES__LISTENBRAINZ__ENABLE
+    ##
+    ## Default: false
+    enable:
+    ## ListenBrainz username to check for listening activity.
+    ##
+    ## Environment variable: LURE_SERVICES__LISTENBRAINZ__USERNAME
+    username:
+    ## ListenBrainz API URL to use for checking listening activity.
+    ##
+    ## Environment variable: LURE_SERVICES__LISTENBRAINZ__API_URL
+    ##
+    ## Default: https://api.listenbrainz.org
+    api_url: https://api.listenbrainz.org
+    ## Interval in seconds to check for listening activity.
+    ##
+    ## Environment variable: LURE_SERVICES__LISTENBRAINZ__CHECK_INTERVAL
+    ##
+    ## Default: 16
+    check_interval: 16
+
+## Configuration for Revolt.
+##
+## Environment variable prefix: LURE_REVOLT__
+revolt:
+  ## The user status.
+  ##
+  ## Environment variable: LURE_REVOLT__STATUS__
+  status:
+    ## The status template that will be used.
+    ##
+    ## The following placeholders can be used:
+    ## - %NAME%: The name of the song.
+    ## - %ARTIST%: The artist of the song.
+    ##
+    ## Environment variable: LURE_REVOLT__STATUS__TEMPLATE
+    ##
+    ## Default: 🎵 Listening to %NAME% by %ARTIST%
+    template: 🎵 Listening to %NAME% by %ARTIST%
+    ## The idle status.
+    ##
+    ## If this option is not set, the status will be returned to
+    ## the previous status when not listening to anything.
+    ##
+    ## Environment variable: LURE_REVOLT__STATUS__IDLE
+    idle:
+  ## The API URL of the instance.
+  ##
+  ## Environment variable: LURE_REVOLT__API_URL
+  ##
+  ## Default: https://api.revolt.chat
+  api_url: https://api.revolt.chat
+  ## The session token of the account.
+  ##
+  ## To obtain a new session token for lure, run `lure config revolt get-session-token`
+  ## and follow the provided steps.
+  ##
+  ## A `-file` suffix can be added to read the API key from a file.
+  ##
+  ## Environment variable: LURE_REVOLT__SESSION_TOKEN
+  ##                       LURE_REVOLT__SESSION_TOKEN_FILE
+  session_token:

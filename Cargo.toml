@@ -1,48 +1,49 @@
-[package]
-name = "lure"
-description = "Display your currently playing track from Last.fm, ListenBrainz, and other services in your Revolt status."
+[workspace]
+members = [
+  "lastfm-models",
+  "listenbrainz-models",
+  "lure",
+  "lure-cli",
+  "lure-config",
+  "lure-resources",
+  "lure-service-common",
+  "lure-service-lastfm",
+  "lure-service-lastfm-config",
+  "lure-service-listenbrainz",
+  "lure-service-listenbrainz-config",
+  "revolt-api",
+  "revolt-models",
+]
+resolver = "3"
+
+[workspace.package]
 repository = "https://github.com/catuhana/lure"
 authors = ["tuhana <tuhana.cat+git@gmail.com>"]
 license = "MPL-2.0"
-version = "0.4.0"
-rust-version = "1.80"
+version = "1.0.0"
 edition = "2021"
+rust-version = "1.84"
 
 [profile.release]
 opt-level = "z"
-lto = "fat"
+lto = "thin"
 
-[dependencies]
-anyhow = "1.0.86"
-clap = { version = "4.5.17", features = ["derive"] }
-figment = { version = "0.10.19", features = ["env", "yaml"], optional = true }
-figment_file_provider_adapter = { version = "0.1.1", optional = true }
-inquire = { version = "0.7.5", default-features = false, features = [
-  "crossterm",
-] }
-regex = "1.10.6"
-reqwest = { version = "0.12.7", features = ["json"] }
-rive-models = "1.2.1"
-serde = { version = "1.0.209", features = ["derive"] }
-serde_json = "1.0.127"
-thiserror = "2.0.0"
-tokio = { version = "1.40.0", features = ["rt-multi-thread", "macros"] }
-tracing = "0.1.40"
-tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+[workspace.lints.clippy]
+nursery = "warn"
+unused_trait_names = "warn"
+std_instead_of_core = "warn"
 
-[features]
-default = ["services-lastfm", "services-listenbrainz"]
-services-lastfm = [
-  "dep:figment",
-  "dep:figment_file_provider_adapter",
-  "tokio/sync",
-  "tokio/signal",
-  "tokio/time",
-]
-services-listenbrainz = [
-  "dep:figment",
-  "dep:figment_file_provider_adapter",
-  "tokio/sync",
-  "tokio/signal",
-  "tokio/time",
-]
+[workspace.dependencies]
+anyhow = "1.0.95"
+async-trait = "0.1.86"
+futures = "0.3.31"
+reqwest = "0.12.12"
+secrecy = "0.10.3"
+serde = "1.0.217"
+serde_yml = "0.0.12"
+thiserror = "2.0.11"
+tokio = "1.43.0"
+
+# [dependencies]
+# tracing = "0.1.40"
+# tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }

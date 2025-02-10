@@ -1,0 +1,23 @@
+[package]
+name = "lure"
+description = "Display your currently playing track from Last.fm, ListenBrainz, and other services in your Revolt status."
+repository.workspace = true
+authors.workspace = true
+license.workspace = true
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+lure-cli = { path = "../lure-cli" }
+
+anyhow.workspace = true
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+
+[features]
+default = ["service-lastfm", "service-listenbrainz"]
+service-lastfm = ["lure-cli/service-lastfm"]
+service-listenbrainz = ["lure-cli/service-listenbrainz"]

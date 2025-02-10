@@ -19,21 +19,22 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  CARGO_TERM_VERBOSE: true
 
 jobs:
   upload-artifact:
     name: Build and Upload Binary
+    runs-on: ${{ matrix.os }}
+    if: github.event_name != 'workflow_run' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     strategy:
       matrix:
         os:
           - ubuntu-latest
           - macos-latest
           - windows-latest
-    runs-on: ${{ matrix.os }}
     permissions:
       id-token: write
       attestations: write
-    if: github.event_name != 'workflow_run' || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success')
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -50,10 +51,10 @@ jobs:
             ~/.cargo/registry/cache
             ~/.cargo/git/db
             target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-stable-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Build project
-        run: cargo build --verbose --release
+        run: cargo build --release
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -67,13 +68,15 @@ jobs:
           subject-name: lure-${{ runner.os }}
           subject-path: target/release/lure${{ runner.os == 'Windows' && '.exe' || '' }}
 
-  push-container-image:
-    name: Push Container Image
-    uses: ./.github/workflows/docker-push.yaml
-    permissions:
-      attestations: write
-      contents: read
-      id-token: write
-      packages: write
-    with:
-      image-name: lure
+  # TODO: Enable this after having done
+  # Containerfile.
+  # push-container-image:
+  #   name: Push Container Image
+  #   uses: ./.github/workflows/docker-push.yaml
+  #   permissions:
+  #     attestations: write
+  #     contents: read
+  #     id-token: write
+  #     packages: write
+  #   with:
+  #     image-name: lure
