@@ -1,0 +1,58 @@
+[package]
+name = "lure-cli"
+repository.workspace = true
+authors.workspace = true
+license.workspace = true
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+lure-config = { path = "../lure-config", optional = true }
+lure-resources = { path = "../lure-resources" }
+lure-service-common = { path = "../lure-service-common", optional = true }
+lure-service-lastfm = { path = "../lure-service-lastfm", optional = true }
+lure-service-lastfm-config = { path = "../lure-service-lastfm-config", optional = true }
+lure-service-listenbrainz = { path = "../lure-service-listenbrainz", optional = true }
+lure-service-listenbrainz-config = { path = "../lure-service-listenbrainz-config", optional = true }
+revolt-api = { path = "../revolt-api", optional = true }
+revolt-models = { path = "../revolt-models", optional = true }
+
+anyhow.workspace = true
+async-trait.workspace = true
+clap = { version = "4.5.28", features = ["derive"] }
+demand = "1.6.2"
+figment = { version = "0.10.19", features = ["env", "yaml"], optional = true }
+figment_file_provider_adapter = { version = "0.1.1", optional = true }
+futures.workspace = true
+reqwest = { workspace = true, features = ["json"] }
+regex = "1.11.1"
+thiserror.workspace = true
+tokio = { workspace = true, features = ["signal"] }
+
+[features]
+service-lastfm = [
+  "dep:lure-config",
+  "lure-config?/service-lastfm",
+  "dep:lure-service-common",
+  "dep:lure-service-lastfm",
+  "dep:lure-service-lastfm-config",
+  "dep:revolt-api",
+  "dep:revolt-models",
+  "dep:figment",
+  "dep:figment_file_provider_adapter",
+]
+service-listenbrainz = [
+  "dep:lure-config",
+  "lure-config?/service-listenbrainz",
+  "dep:lure-service-common",
+  "dep:lure-service-listenbrainz",
+  "dep:lure-service-listenbrainz-config",
+  "dep:revolt-api",
+  "dep:revolt-models",
+  "dep:figment",
+  "dep:figment_file_provider_adapter",
+]

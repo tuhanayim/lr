@@ -1,0 +1,17 @@
+[package]
+name = "revolt-api"
+repository.workspace = true
+authors.workspace = true
+license.workspace = true
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+revolt-models = { path = "../revolt-models" }
+
+reqwest.workspace = true
+thiserror.workspace = true

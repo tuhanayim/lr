@@ -1,0 +1,24 @@
+[package]
+name = "lure-config"
+repository.workspace = true
+authors.workspace = true
+license.workspace = true
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+lure-service-lastfm-config = { path = "../lure-service-lastfm-config", optional = true }
+lure-service-listenbrainz-config = { path = "../lure-service-listenbrainz-config", optional = true }
+
+serde = { workspace = true, features = ["derive"] }
+
+[dev-dependencies]
+serde_yml.workspace = true
+
+[features]
+service-lastfm = ["dep:lure-service-lastfm-config"]
+service-listenbrainz = ["dep:lure-service-listenbrainz-config"]

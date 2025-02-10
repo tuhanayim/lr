@@ -1,0 +1,24 @@
+[package]
+name = "lure-service-listenbrainz"
+repository.workspace = true
+authors.workspace = true
+license.workspace = true
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+listenbrainz-models = { path = "../listenbrainz-models" }
+lure-service-common = { path = "../lure-service-common" }
+lure-service-listenbrainz-config = { path = "../lure-service-listenbrainz-config" }
+
+anyhow.workspace = true
+async-trait.workspace = true
+futures.workspace = true
+reqwest = { workspace = true, features = ["json"] }
+secrecy.workspace = true
+thiserror.workspace = true
+tokio.workspace = true

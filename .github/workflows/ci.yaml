@@ -5,8 +5,8 @@ on:
   push:
     paths-ignore:
       - .github/workflows/**
-      - '!.github/workflows/ci.yaml'
-      - '!.github/workflows/docker-push.yaml'
+      - "!.github/workflows/ci.yaml"
+      - "!.github/workflows/docker-push.yaml"
       - .vscode/**
       - .gitignore
       - LICENCE
@@ -16,8 +16,8 @@ on:
       - main
     paths-ignore:
       - .github/workflows/**
-      - '!.github/workflows/ci.yaml'
-      - '!.github/workflows/docker-push.yaml'
+      - "!.github/workflows/ci.yaml"
+      - "!.github/workflows/docker-push.yaml"
       - .vscode/**
       - .gitignore
       - LICENCE
@@ -31,16 +31,17 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  CARGO_TERM_VERBOSE: true
 
 jobs:
   ci:
     name: Check Code, Code Formatting and Linting
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         rust-toolchain:
           - stable
           - nightly
-    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -63,12 +64,12 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ matrix.rust-toolchain }}-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Check Rust code
-        run: cargo +${{ matrix.rust-toolchain }} check --verbose --all
+        run: cargo +${{ matrix.rust-toolchain }} check --all
 
       - name: Check Rust code format
         if: '!cancelled()'
-        run: cargo +${{ matrix.rust-toolchain }} fmt --verbose --all --check
+        run: cargo +${{ matrix.rust-toolchain }} fmt --all --check
 
       - name: Check Rust code lint
         if: '!cancelled()'
-        run: cargo +${{ matrix.rust-toolchain }} clippy --verbose -- -W clippy::nursery
+        run: cargo +${{ matrix.rust-toolchain }} clippy -- -W clippy::nursery
