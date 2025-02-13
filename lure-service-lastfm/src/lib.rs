@@ -27,7 +27,7 @@ impl Service {
 impl lure_service_common::Service for Service {
     async fn get_current_playing_track(
         &self,
-    ) -> Result<Option<lure_service_common::TrackInfo>, lure_service_common::ServiceError> {
+    ) -> Result<Option<lure_service_common::TrackInfo>, anyhow::Error> {
         let url = Url::parse_with_params(
             "https://ws.audioscrobbler.com/2.0/",
             &[
@@ -73,7 +73,7 @@ impl lure_service_common::Service for Service {
 }
 
 impl Stream for Service {
-    type Item = Result<Option<lure_service_common::TrackInfo>, lure_service_common::ServiceError>;
+    type Item = Result<Option<lure_service_common::TrackInfo>, anyhow::Error>;
 
     fn poll_next(
         mut self: core::pin::Pin<&mut Self>,
