@@ -2,9 +2,11 @@ use core::future::Future;
 use core::{task::Poll, time::Duration};
 
 use futures::Stream;
-use lure_service_common::Service as _;
+use lure_service_common::{Service as _, ServiceCustomError};
 use reqwest::{ClientBuilder, StatusCode};
 use tokio::time::{interval, Interval};
+
+pub type ServiceError = lure_service_common::ServiceError<APIError>;
 
 pub struct Service {
     http_client: reqwest::Client,
@@ -78,16 +80,6 @@ impl Stream for Service {
     }
 }
 
-#[derive(Debug, thiserror::Error)]
-pub enum ServiceError {
-    #[error(transparent)]
-    APIError(#[from] APIError),
-    #[error(transparent)]
-    Reqwest(#[from] reqwest::Error),
-    #[error(transparent)]
-    Anyhow(#[from] anyhow::Error),
-}
-
 #[derive(thiserror::Error, Debug)]
 pub enum APIError {
     #[error("User not found.")]
@@ -95,6 +87,8 @@ pub enum APIError {
     #[error("Unexpected API error: {0}")]
     Unexpected(String),
 }
+
+impl ServiceCustomError for APIError {}
 
 pub trait HandleServiceAPIError: Sized {
     type Error: core::error::Error;

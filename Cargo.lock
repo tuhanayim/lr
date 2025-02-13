@@ -936,6 +936,8 @@ dependencies = [
  "anyhow",
  "async-trait",
  "futures",
+ "reqwest",
+ "thiserror",
 ]
 
 [[package]]

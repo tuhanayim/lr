@@ -2,10 +2,12 @@ use core::future::Future;
 use core::{task::Poll, time::Duration};
 
 use futures::Stream;
-use lure_service_common::Service as _;
+use lure_service_common::{Service as _, ServiceCustomError};
 use reqwest::{ClientBuilder, StatusCode, Url};
 use secrecy::ExposeSecret as _;
 use tokio::time::{interval, Interval};
+
+pub type ServiceError = lure_service_common::ServiceError<APIError>;
 
 pub struct Service {
     http_client: reqwest::Client,
@@ -88,18 +90,6 @@ impl Stream for Service {
     }
 }
 
-// TODO: Deduplicate this, also in
-// `lure-service-listenbrainz`.
-#[derive(Debug, thiserror::Error)]
-pub enum ServiceError {
-    #[error(transparent)]
-    APIError(#[from] APIError),
-    #[error(transparent)]
-    Reqwest(#[from] reqwest::Error),
-    #[error(transparent)]
-    Anyhow(#[from] anyhow::Error),
-}
-
 #[derive(Debug, thiserror::Error)]
 pub enum APIError {
     #[error("Authentication failed")]
@@ -119,6 +109,8 @@ pub enum APIError {
     #[error("Unexpected API error: {0}")]
     Unexpected(String),
 }
+
+impl ServiceCustomError for APIError {}
 
 // TODO: Find a way to deduplicate this. Almost
 // same code is used in many places.
