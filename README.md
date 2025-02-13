@@ -5,6 +5,7 @@
 - [ ] Add `tracing` logging
 - [ ] Create Containerfile
 - [ ] Create Nix flake
+- [ ] Create systemd service file (and distribution packaging files?)
 
 <!-- # lure
 
