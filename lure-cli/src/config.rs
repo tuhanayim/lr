@@ -7,7 +7,6 @@ use revolt_models::{paths::auth::session::login, schemas};
 
 use crate::Command;
 
-// TODO: Recommend using `_FILE` prefix on the last line.
 const SUCCESSFUL_LOGIN_RESPONSE_TEMPLATE: fn(&str) -> String = |session_token| {
     format!(
         r#"
@@ -25,7 +24,9 @@ revolt: api_url: <instance-url>
 
 ⚠️ SECURITY WARNING
 Your session token grants complete access to your account.
-Never share it with anyone and store it securely.
+Never share it with anyone and store it securely, by using
+`_file` or `_FILE` suffix in your configuration file and
+environment variables respectively.
 "#
     )
 };
