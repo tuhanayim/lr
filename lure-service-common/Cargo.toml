@@ -1,0 +1,18 @@
+[package]
+name = "lure-service-common"
+repository.workspace = true
+authors.workspace = true
+license.workspace = true
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow.workspace = true
+async-trait.workspace = true
+futures.workspace = true
+reqwest = { workspace = true, default-features = false }
+thiserror.workspace = true

@@ -1,5 +1,14 @@
 # lure
 
+## TODO
+
+- [ ] Add `tracing` logging
+- [ ] Create Containerfile
+- [ ] Create Nix flake
+- [ ] Create systemd service file (and distribution packaging files?)
+
+<!-- # lure
+
 [![CI Status](https://img.shields.io/github/actions/workflow/status/catuhana/lure/ci.yaml?style=flat-square&label=CI)](https://github.com/catuhana/lure/actions/workflows/ci.yaml)
 [![CD Status](https://img.shields.io/github/actions/workflow/status/catuhana/lure/cd.yaml?style=flat-square&label=CD)](https://github.com/catuhana/lure/actions/workflows/cd.yaml)
 [![Latest Release](https://img.shields.io/github/v/release/catuhana/lure?style=flat-square)](https://github.com/catuhana/lure/releases/latest)
@@ -101,4 +110,4 @@ If you're using any container management tools, you can either mount the host co
 Lure currently has two service features and, they're enabled by default: LastFM and ListenBrainz. PRs for adding new platforms is very welcome.
 
 > [!TIP]
-> If you'd like to only enable the service you're using, you can pass `--no-default-features` and `--features services-<platform>` to the [install command above](#install), `<platform>` being the lowercase platform string. To see all exact feature names, [see Cargo.toml](Cargo.toml)
+> If you'd like to only enable the service you're using, you can pass `--no-default-features` and `--features services-<platform>` to the [install command above](#install), `<platform>` being the lowercase platform string. To see all exact feature names, [see Cargo.toml](Cargo.toml) -->

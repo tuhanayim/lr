@@ -41,6 +41,7 @@ jobs:
 
   build-and-upload:
     name: Build and Upload
+    runs-on: ${{ matrix.os }}
     needs: create-release
     strategy:
       matrix:
@@ -48,7 +49,9 @@ jobs:
           - ubuntu-latest
           - windows-latest
           - macos-latest
-    runs-on: ${{ matrix.os }}
+    env:
+      CARGO_TERM_COLOR: always
+      CARGO_TERM_VERBOSE: true
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -65,10 +68,10 @@ jobs:
             ~/.cargo/registry/cache
             ~/.cargo/git/db
             target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-stable-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Build project
-        run: cargo build --verbose --release
+        run: cargo build --release
 
       - name: Upload release asset
         uses: actions/github-script@v7
@@ -86,8 +89,10 @@ jobs:
               data: asset
             });
 
-  push-container-image:
-    name: Push Container Image
-    uses: ./.github/workflows/docker-push.yaml
-    with:
-      image-name: lure
+  # TODO: Enable this after having done
+  # Containerfile.
+  # push-container-image:
+  #   name: Push Container Image
+  #   uses: ./.github/workflows/docker-push.yaml
+  #   with:
+  #     image-name: lure
